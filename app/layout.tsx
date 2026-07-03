@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Table } from "./components/table";
+import { Candle } from "./components/candle/candle";
+import { Book } from "./components/book/book";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +29,23 @@ export default function RootLayout()
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col overflow-hidden">
-        <Table />
+        <Table>
+          <div
+            className="w-full h-full flex justify-between"
+            style={{ padding: "100px 50px" }}
+          >
+            <div className="flex flex-col items-end" style={{ width: 300 }}>
+              <Candle flame={1} />
+              <Image width={200} height={300} src="/rose.png" style={{ transform: "rotate(-60deg)" }} />
+            </div>
+            
+            <Book />
+            <div className="flex flex-col" style={{ width: 300 }}>
+              <Candle flame={2} />
+              <Image width={300} height={300} src="/pen.png"/>
+            </div>
+          </div>
+        </Table>
       </body>
     </html>
   );

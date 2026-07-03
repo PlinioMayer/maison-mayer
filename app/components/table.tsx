@@ -1,14 +1,10 @@
-import React from "react";
-import { Candle } from "./candle/candle";
-import { Book } from "./book/book";
+import { ReactNode } from "react";
 
-export const Table = () => (
+export const Table = ({ children }: { children: ReactNode }) => (
   <div
-    className="h-screen w-screen flex justify-between"
-    style={{backgroundImage: "url(table.png)", padding: "100px 200px"}}
+    className="h-screen w-screen"
+    style={{backgroundImage: "url(table.png)"}}
   >
-    <Candle flame={1} />
-    <Book />
-    <Candle flame={2} />
+    {children}
   </div>
 );
