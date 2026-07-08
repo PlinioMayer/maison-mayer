@@ -9,3 +9,10 @@
   font-family: "EB Garamond", serif;
   font-size: 15px;
 }
+
+.image {
+  position: relative;
+  margin: 10px;
+  height: 480px;
+  width: 330px;
+}

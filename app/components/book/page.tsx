@@ -1,11 +1,9 @@
-import { forwardRef, ReactNode } from "react";
+import { CSSProperties, forwardRef, ReactNode } from "react";
 import "./page.css";
 
-export const Page = forwardRef<HTMLDivElement, { children: ReactNode }>(({ children }, ref) => (
-    <div className="page" ref={ref}>
-      <div className="page-content">
-        {children}
-      </div>
+export const Page = forwardRef<HTMLDivElement, { children: ReactNode, style?: CSSProperties }>(({ children, style }, ref) => (
+    <div style={style} className="page" ref={ref}>
+      {children}
     </div>
 ));
 
