@@ -1,23 +1,56 @@
 'use client'
 
-import { CSSProperties } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Letter({isOpen}: { isOpen: boolean }) {
+  const [openFlaps, setOpenFlaps] = useState(isOpen);
+  const [openSeal, setOpenSeal] = useState(isOpen);
+  const [openedSeal, setOpenedSeal] = useState(isOpen);
+
+  useEffect(() => {
+    if(isOpen && !openSeal) {
+      setTimeout(() => {
+        setOpenSeal(true);
+      }, 0);
+
+      setTimeout(() => {
+        setOpenedSeal(true);
+      }, 2000);
+    }
+  }, [setOpenSeal, setOpenedSeal, isOpen, openSeal]);
+
+  useEffect(() => {
+    if(isOpen) {
+      setTimeout(() => {
+          setOpenFlaps(true);
+        }, openedSeal ? 0 : 1000);
+    } else {
+      setTimeout(() => {
+          setOpenFlaps(false);
+        }, 0);
+    }
+  }, [setOpenFlaps, openedSeal,  isOpen]);
 
   return (
       <div style={styles.envelopeWrapper}>
-        <motion.img src="/seal.png" style={styles.seal} /> 
+        <motion.img
+          src="/seal.png"
+          style={styles.seal}
+          animate={{ left: openSeal ? 2000 : 205 }}
+          transition={{ duration: 2 , ease: "easeInOut" }}
+        /> 
+        
         <motion.div
           style={styles.flapTop}
-          animate={{ rotateX: isOpen ? 180 : 0 }}
+          animate={{ rotateX: openFlaps ? 180 : 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-        ></motion.div>
+        />
 
         <motion.div
           initial={false}
           style={{...styles.flapTopInside, ...styles.padding, paddingTop: 30}}
-          animate={{ rotateX: isOpen ? 0 : 180 }}
+          animate={{ rotateX: openFlaps ? 0 : 180 }}
           transition={{ duration: 0.5 , ease: "easeInOut" }}
         >
             <p>
@@ -65,7 +98,7 @@ export default function Letter({isOpen}: { isOpen: boolean }) {
         <motion.div
           initial={false}
           style={{...styles.flapBottomInside, ...styles.padding}}
-          animate={{ rotateX: isOpen ? 0 : 180 }}
+          animate={{ rotateX: openFlaps ? 0 : 180 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           <p>
@@ -81,7 +114,7 @@ export default function Letter({isOpen}: { isOpen: boolean }) {
 
         <motion.div
           style={styles.flapBottom}
-          animate={{ rotateX: isOpen ? 180 : 0 }}
+          animate={{ rotateX: openFlaps ? 180 : 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         />
       </div>
@@ -92,7 +125,6 @@ const styles: { [name: string]: CSSProperties } = {
   seal: {
     position: 'absolute',
     top: 100,
-    left: 205,
     width: 100,
     zIndex: 2
   },
