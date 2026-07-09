@@ -8,3 +8,4 @@ export const Page = forwardRef<HTMLDivElement, { children: ReactNode, style?: CS
 ));
 
 Page.displayName = 'Page';
+export default Page;

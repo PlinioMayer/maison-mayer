@@ -4,9 +4,9 @@ import { CSSProperties, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Letter({isOpen}: { isOpen: boolean }) {
-  const [openFlaps, setOpenFlaps] = useState(isOpen);
-  const [openSeal, setOpenSeal] = useState(isOpen);
-  const [openedSeal, setOpenedSeal] = useState(isOpen);
+  const [openFlaps, setOpenFlaps] = useState(false);
+  const [openSeal, setOpenSeal] = useState(false);
+  const [openedSeal, setOpenedSeal] = useState(false);
 
   useEffect(() => {
     if(isOpen && !openSeal) {
